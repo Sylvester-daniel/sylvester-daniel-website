@@ -1,0 +1,33 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[functions."cron/birthday"]
+  schedule = "0 7 * * *"
+
+[functions."cron/new-month"]
+  schedule = "5 0 1 * *"
+
+[functions."cron/holidays"]
+  schedule = "0 7 * * *"
+
+[[redirects]]
+  from = "/subscribe"
+  to = "/subscribe.html"
+  status = 200
+
+[[redirects]]
+  from = "/unsubscribe"
+  to = "/.netlify/functions/unsubscribe"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone
