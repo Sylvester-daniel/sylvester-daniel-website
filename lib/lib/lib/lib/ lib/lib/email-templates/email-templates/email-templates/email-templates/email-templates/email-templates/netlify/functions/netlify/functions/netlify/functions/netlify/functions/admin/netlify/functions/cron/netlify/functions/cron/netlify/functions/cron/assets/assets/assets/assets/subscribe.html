@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Subscribe — Sylvester Daniel</title>
+<meta name="description" content="Join the mailing list for new work, honest write-ups, offers, and a note on your birthday. Unsubscribe any time." />
+<meta name="theme-color" content="#0C1116" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+  a.back-home{
+    position:fixed; top:1.5rem; left:1.5rem; z-index:50;
+    color:rgba(255,255,255,.6); text-decoration:none; font-size:.85rem;
+    display:inline-flex; align-items:center; gap:.4rem; font-weight:500;
+    font-family:var(--f-mono);
+  }
+  a.back-home:hover{color:#fff;}
+
+  .page{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
+
+  .brand-panel{
+    background:var(--ink);color:#fff;padding:5rem 4rem;position:relative;
+    display:flex;flex-direction:column;justify-content:center;overflow:hidden;
+  }
+  .brand-panel::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 70% 60% at 25% 15%, rgba(20,184,166,.20) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 55% at 85% 85%, rgba(232,67,147,.16) 0%, transparent 60%);
+    z-index:0;
+  }
+  .brand-inner{position:relative;z-index:1;max-width:420px;}
+  .brand-eyebrow{
+    display:inline-flex;align-items:center;gap:.6rem;font-family:var(--f-mono);
+    font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--teal);margin-bottom:1.6rem;
+  }
+  .brand-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--magenta);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+  .brand-panel h1{font-family:var(--f-display);font-weight:700;font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.1;margin-bottom:1.3rem;}
+  .brand-panel h1 em{color:var(--teal);font-style:normal;display:block;}
+  .brand-panel p.lede{color:rgba(255,255,255,.66);line-height:1.8;font-weight:400;margin-bottom:2.2rem;}
+
+  .perks{list-style:none;display:flex;flex-direction:column;gap:1.1rem;}
+  .perks li{display:flex;gap:.9rem;align-items:flex-start;font-size:.92rem;color:rgba(255,255,255,.82);}
+  .perk-mark{
+    flex-shrink:0;width:28px;height:28px;border-radius:6px;
+    background:rgba(20,184,166,.14);border:1px solid rgba(20,184,166,.4);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.85rem;color:var(--teal);margin-top:.1rem;font-family:var(--f-mono);
+  }
+  .perks strong{display:block;color:#fff;font-weight:600;margin-bottom:.15rem;}
+
+  .slate-peek{
+    margin-top:3rem;border-top:1px dashed rgba(255,255,255,.18);padding-top:1.5rem;
+    font-family:var(--f-mono);letter-spacing:.05em;color:rgba(255,255,255,.32);font-size:.78rem;
+  }
+
+  .form-panel{background:var(--paper);padding:5rem 4rem;display:flex;align-items:center;justify-content:center;position:relative;}
+  .form-wrap{width:100%;max-width:440px;}
+  .form-wrap h2{font-family:var(--f-display);font-weight:700;font-size:1.6rem;color:var(--text-ink);margin-bottom:.4rem;}
+  .form-wrap .sub{color:var(--text-ink-dim);font-size:.9rem;margin-bottom:2.2rem;line-height:1.6;}
+
+  form{display:flex;flex-direction:column;gap:1.2rem;}
+  .field{position:relative;display:flex;flex-direction:column;gap:.4rem;}
+  .field label{font-family:var(--f-mono);font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--text-ink-dim);}
+  .field label .req{color:var(--magenta);margin-left:.15rem;}
+  .field input, .field select{
+    font-family:var(--f-body);font-size:.95rem;padding:.85rem 1rem;border:1.5px solid var(--line-light);
+    border-radius:7px;background:var(--white);color:var(--text-ink);width:100%;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .field input:focus, .field select:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(20,184,166,.12);outline:none;}
+  .field input.invalid{border-color:var(--error);}
+  .field .err-msg{font-size:.78rem;color:var(--error);min-height:1em;display:none;}
+  .field .err-msg.show{display:block;}
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+  .hp-field{position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;overflow:hidden;}
+
+  .consent{display:flex;gap:.7rem;align-items:flex-start;margin-top:.4rem;}
+  .consent input[type="checkbox"]{width:19px;height:19px;margin-top:.15rem;accent-color:var(--teal);flex-shrink:0;cursor:pointer;}
+  .consent label{font-size:.82rem;color:var(--text-ink-dim);line-height:1.5;font-weight:400;text-transform:none;letter-spacing:0;}
+  .consent a{color:var(--teal-dim);text-decoration:underline;}
+
+  .submit-btn{
+    margin-top:.6rem;background:var(--teal);color:#04211D;border:none;
+    padding:1rem 1.5rem;border-radius:7px;font-weight:700;font-size:.98rem;font-family:var(--f-body);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.6rem;
+    transition:background .2s, transform .1s;box-shadow:0 4px 20px rgba(20,184,166,.28);
+  }
+  .submit-btn:hover:not(:disabled){background:#1ED0BC;}
+  .submit-btn:active:not(:disabled){transform:scale(.98);}
+  .submit-btn:disabled{opacity:.7;cursor:not-allowed;}
+
+  .spinner{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(4,33,29,.35);border-top-color:#04211D;animation:spin .7s linear infinite;display:none;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .submit-btn.loading .spinner{display:inline-block;}
+  .submit-btn.loading .btn-label{display:none;}
+
+  .form-note{font-size:.72rem;color:var(--text-ink-dim);text-align:center;margin-top:.4rem;line-height:1.6;}
+  .form-note a{color:var(--text-ink-dim);}
+
+  .banner{display:none;padding:.9rem 1rem;border-radius:7px;font-size:.85rem;margin-bottom:1rem;align-items:center;gap:.6rem;line-height:1.5;}
+  .banner.show{display:flex;}
+  .banner.error{background:#FBEAEA;color:#B3261E;border:1px solid #F0C9C9;}
+
+  .success-state{display:none;text-align:center;animation:rise .5s ease both;}
+  .success-state.show{display:block;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  .slate{
+    background:var(--white);border-radius:10px;position:relative;padding:0;text-align:left;
+    box-shadow:0 20px 50px rgba(12,17,22,.16);overflow:hidden;
+  }
+  .slate-top{
+    background:repeating-linear-gradient(-45deg, var(--ink) 0 14px, #1A222D 14px 28px);
+    padding:.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center;
+  }
+  .slate-top .stamp{
+    font-family:var(--f-mono);letter-spacing:.1em;font-size:.78rem;color:#04211D;
+    background:var(--teal);padding:.25rem .65rem;border-radius:4px;font-weight:600;
+  }
+  .slate-top .clap{font-size:1.3rem;}
+  .slate-body{padding:1.8rem 1.7rem 1.6rem;}
+  .slate h3{font-family:var(--f-display);font-size:1.3rem;margin-bottom:.5rem;color:var(--text-ink);}
+  .slate p{font-size:.88rem;color:var(--text-ink-dim);line-height:1.65;margin-bottom:1rem;}
+  .slate-id{font-family:var(--f-mono);letter-spacing:.08em;color:rgba(12,17,22,.32);font-size:.78rem;}
+
+  @media (max-width:980px){
+    .page{grid-template-columns:1fr;}
+    .brand-panel, .form-panel{padding:3.2rem 1.75rem;}
+    .brand-panel{padding-top:5rem;}
+    .slate-peek{display:none;}
+  }
+</style>
+</head>
+<body>
+<a href="index.html" class="back-home">← Back to site</a>
+
+<div class="page">
+
+  <section class="brand-panel" aria-hidden="true">
+    <div class="brand-inner">
+      <p class="brand-eyebrow"><span class="dot"></span>SYLVESTER DANIEL — EDINBURGH</p>
+      <h1>Join the list<em>— it's short, and skippable.</em></h1>
+      <p class="lede">New work, occasional offers, and a note when it matters. One click to leave whenever you like.</p>
+      <ul class="perks">
+        <li><span class="perk-mark">01</span><div><strong>New work &amp; write-ups</strong>What's landed recently, and what actually worked.</div></li>
+        <li><span class="perk-mark">02</span><div><strong>Birthday email</strong>One nice email a year, nothing more.</div></li>
+        <li><span class="perk-mark">03</span><div><strong>Offers, first</strong>Occasional promotions sent to subscribers before anyone else.</div></li>
+      </ul>
+      <p class="slate-peek">NO SPAM · UNSUBSCRIBE ANYTIME · UK GDPR COMPLIANT</p>
+    </div>
+  </section>
+
+  <section class="form-panel">
+    <div class="form-wrap">
+
+      <div id="form-view">
+        <h2>Subscribe</h2>
+        <p class="sub">Fill in the details below — only your name and email are required.</p>
+
+        <div class="banner error" id="error-banner" role="alert">
+          <span id="error-banner-text"></span>
+        </div>
+
+        <form id="subscribe-form" novalidate>
+          <div class="hp-field" aria-hidden="true">
+            <label for="hp-website">Leave this field empty</label>
+            <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="field">
+            <label for="fullName">Full name <span class="req">*</span></label>
+            <input type="text" id="fullName" name="fullName" required autocomplete="name">
+            <span class="err-msg" id="err-fullName">Please enter your full name.</span>
+          </div>
+
+          <div class="field">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+            <span class="err-msg" id="err-email">Please enter a valid email address.</span>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel">
+              <span class="err-msg" id="err-phone">Please enter a valid phone number.</span>
+            </div>
+            <div class="field">
+              <label for="dob">Date of birth <span class="req">*</span></label>
+              <input type="date" id="dob" name="dob" required autocomplete="bday">
+              <span class="err-msg" id="err-dob">Please enter your date of birth.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="country">Country (optional)</label>
+            <select id="country" name="country">
+              <option value="">Select your country</option>
+              <option value="United Kingdom" selected>United Kingdom</option>
+              <option value="Ireland">Ireland</option>
+              <option value="United States">United States</option>
+              <option value="Canada">Canada</option>
+              <option value="Australia">Australia</option>
+              <option value="Nigeria">Nigeria</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">I agree to the <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a> and to receive emails from Sylvester Daniel. Unsubscribe any time.</label>
+          </div>
+          <span class="err-msg" id="err-consent">Please agree to the Privacy Policy to continue.</span>
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="btn-label">Subscribe</span>
+          </button>
+
+          <p class="form-note">Protected by reCAPTCHA. This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a> apply.</p>
+        </form>
+      </div>
+
+      <div class="success-state" id="success-view">
+        <div class="slate">
+          <div class="slate-top">
+            <span class="clap" aria-hidden="true">🎬</span>
+            <span class="stamp">SUBSCRIBED</span>
+          </div>
+          <div class="slate-body">
+            <h3>You're on the list<span id="success-name"></span>.</h3>
+            <p>Check your inbox — a welcome email is on its way. Add <strong>sylvester76daniel@gmail.com</strong> to your contacts so it doesn't land in spam.</p>
+            <p class="slate-id" id="slate-id">REF #000000</p>
+            <p style="font-size:.78rem;color:var(--text-ink-dim);margin-top:1rem;">Taking you back to the homepage in <span id="redirect-count">6</span>s… <a href="index.html" style="color:var(--teal-dim);font-weight:600;">go now</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js?render=RECAPTCHA_SITE_KEY"></script>
+<script src="assets/subscribe.js"></script>
+</body>
+</html>
