@@ -1,0 +1,15 @@
+{
+  "name": "sylvester-daniel-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website and email automation backend for Sylvester Daniel — web design, video editing and graphic design studio.",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}
