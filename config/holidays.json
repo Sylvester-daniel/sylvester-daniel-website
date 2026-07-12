@@ -1,0 +1,7 @@
+[
+  { "date": "01-01", "name": "New Year's Day", "message": "Wishing you a fresh start and a strong year ahead." },
+  { "date": "03-17", "name": "St Patrick's Day", "message": "A little green in your feed today — happy St Patrick's Day." },
+  { "date": "04-06", "name": "Easter", "message": "Wishing you a restful Easter break." },
+  { "date": "12-25", "name": "Christmas Day", "message": "Warm wishes this Christmas, from me to you and your business." },
+  { "date": "12-31", "name": "New Year's Eve", "message": "Here's to wrapping up the year well — see you in the new one." }
+]
