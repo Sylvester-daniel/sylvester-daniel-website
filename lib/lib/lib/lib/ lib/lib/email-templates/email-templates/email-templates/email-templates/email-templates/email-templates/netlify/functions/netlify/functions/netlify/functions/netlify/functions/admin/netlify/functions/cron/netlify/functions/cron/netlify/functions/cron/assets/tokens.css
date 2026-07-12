@@ -1,0 +1,47 @@
+/* ============================================================
+   Sylvester Daniel — Design tokens
+   Shared across index.html, subscribe.html, privacy-policy.html
+   ============================================================ */
+:root{
+  /* Color */
+  --ink:#0C1116;
+  --ink-2:#121821;
+  --ink-3:#1A222D;
+  --paper:#F4F2ED;
+  --paper-2:#EAE7DE;
+  --white:#FFFFFF;
+  --teal:#14B8A6;
+  --teal-dim:#0E8A7C;
+  --magenta:#E84393;
+  --amber:#F5A623;
+  --line-dark:rgba(255,255,255,.10);
+  --line-light:rgba(12,17,22,.12);
+  --text-dark:#E9EEF2;
+  --text-dim:rgba(233,238,242,.66);
+  --text-ink:#12181F;
+  --text-ink-dim:#5B6472;
+  --error:#E5484D;
+  --focus-ring:#3B82F6;
+
+  /* Type */
+  --f-display:'Space Grotesk', sans-serif;
+  --f-body:'Inter', sans-serif;
+  --f-mono:'IBM Plex Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+body{font-family:var(--f-body);background:var(--ink);color:var(--text-dark);-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:2px;}
+.skip-link{position:absolute;top:-9999px;left:1rem;background:var(--focus-ring);color:#fff;padding:.75rem 1.5rem;border-radius:4px;font-weight:700;text-decoration:none;z-index:1000;}
+.skip-link:focus{top:1rem;}
+
+.mono-tag{
+  font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem);}
